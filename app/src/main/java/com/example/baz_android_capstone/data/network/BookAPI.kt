@@ -3,6 +3,7 @@ package com.example.baz_android_capstone.data.network
 import com.example.baz_android_capstone.data.models.availableBook.Book
 import com.example.baz_android_capstone.data.models.orderBook.OrderBook
 import com.example.baz_android_capstone.data.models.ticker.Ticker
+import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
 import javax.inject.Singleton
@@ -21,4 +22,7 @@ interface BookAPI {
 
     @GET("order_book")
     suspend fun getOrderBook(@Query("book") book: String): OrderBook
+
+    @GET("available_books")
+    fun getAllAvailableBooksRxJava(): Single<Book>
 }
