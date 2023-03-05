@@ -15,6 +15,8 @@ class Repository @Inject constructor(
     private val orderDao = db.orderDao()
     private val tickerDao = db.tickerDao()
 
+    fun getBooksRxJava() = api.getAllAvailableBooksRxJava()
+
     fun getBooks() = networkBoundResource(
         query = {
             bookDao.getBooks()
