@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -23,12 +24,21 @@ import com.example.baz_android_capstone.data.models.availableBook.Book
 import com.example.baz_android_capstone.presentation.navigation.Screen
 import com.example.baz_android_capstone.presentation.viewmodels.BookViewModel
 import com.example.baz_android_capstone.util.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.withContext
 
 @Composable
 fun Principal(
     navController: NavController,
     bookViewModel: BookViewModel
 ) {
+    LaunchedEffect(key1 = true) {
+        withContext(Dispatchers.IO) {
+            bookViewModel.getBooksRx()
+        }
+    }
+
     val books = bookViewModel.books.collectAsState(initial = null)
 
     val listOfElements = mutableListOf<GenericCardInterface>()
